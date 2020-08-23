@@ -32,6 +32,15 @@ def calculate_demographic_data(print_data=True):
     higher_education_rich = None
     lower_education_rich = None
 
+    higher_education_condition= (df['education']=='Bachelors') | (df['education']=='Masters') | (df['education']=='Doctorate')
+    higher_education=df[higher_education_condition]
+    higher_education_salary_percent=higher_education['salary'].value_counts(normalize=True)*100
+    higher_education_rich=higher_education_salary_percent.loc['>50K']
+
+    lower_education=df[higher_education_condition==False]
+    lower_education_salary_percent=lower_education['salary'].value_counts(normalize=True)*100
+    lower_education_rich=lower_education_salary_percent.loc['>50K']
+
     # What is the minimum number of hours a person works per week (hours-per-week feature)?
     min_work_hours = None
 
